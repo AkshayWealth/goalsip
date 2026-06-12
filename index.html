@@ -268,6 +268,8 @@
     <div class="input-group">
         <label for="expectedReturn">અંદાજિત વળતર (Expected Return - % Yearly):</label>
         <select id="expectedReturn">
+            <option value="8">8% (FD / Debt Fund)</option>
+            <option value="10">10% (Conservative Growth)</option>
             <option value="12" selected>12% (Conservative Equity)</option>
             <option value="13">13% (Balanced Growth)</option>
             <option value="15">15% (Aggressive Growth)</option>
@@ -360,7 +362,6 @@
 
         document.getElementById('resultBox').style.display = 'block';
 
-        // Dynamic WhatsApp Message for 7383666008
         const phoneNumber = "917383666008";
         const whatsappMsg = `હેલો અ-ક્ષય વેલ્થ, હું મારા "${goalName}" ના ગોલ માટે ₹${formattedTarget} મેળવવા દર મહિને આશરે ${formattedSIP} ની SIP શરૂ કરવા માંગુ છું. કૃપા કરીને મને ગાઈડ કરો.`;
         const encodedMsg = encodeURIComponent(whatsappMsg);
@@ -369,7 +370,7 @@
 
         setTimeout(function() {
             showPopup();
-        }, 10000); // 10 Seconds delay
+        }, 10000);
     }
 </script>
 
