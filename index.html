@@ -362,8 +362,11 @@
 
         document.getElementById('resultBox').style.display = 'block';
 
+        // FIX: Clean, safe text messaging layout and stable wa.me shortlink
         const phoneNumber = "917383666008";
-        const whatsappMsg = `હેલો અ-ક્ષય વેલ્થ, હું મારા "${goalName}" ના ગોલ માટે ₹${formattedTarget} મેળવવા દર મહિને આશરે ${formattedSIP} ની SIP શરૂ કરવા માંગુ છું. કૃપા કરીને મને ગાઈડ કરો.`;
+        const whatsappMsg = `હેલો અ-ક્ષય વેલ્થ,\n\nહું મારા "${goalName}" ના ગોલ માટે ₹${formattedTarget} મેળવવા દર મહિને આશરે ${formattedSIP} ની SIP શરૂ કરવા માંગુ છું.\n\nકૃપા કરીને મને આ પ્લાન માટે ગાઈડ કરો.`;
+        
+        // Proper browser encoding to avoid WhatsApp Web "Something went wrong" error
         const encodedMsg = encodeURIComponent(whatsappMsg);
         
         document.getElementById('whatsappLink').href = `https://wa.me/${phoneNumber}?text=${encodedMsg}`;
