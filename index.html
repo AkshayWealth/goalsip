@@ -28,7 +28,6 @@
             padding: 30px;
             border: 1px solid #e1e8ed;
         }
-        /* Logo & Branding Styling */
         .brand-header {
             text-align: center;
             margin-bottom: 25px;
@@ -107,7 +106,6 @@
         button.btn-calculate:hover {
             background-color: #061a33;
         }
-        /* Results Section */
         .result-box {
             margin-top: 25px;
             padding: 20px;
@@ -132,8 +130,6 @@
             color: #5c728a;
             line-height: 1.5;
         }
-
-        /* POPUP SCREEN OVERLAY (CENTER MODAL) */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -185,8 +181,6 @@
             margin-bottom: 20px;
             line-height: 1.5;
         }
-        
-        /* Buttons inside popup */
         .popup-buttons-container {
             display: flex;
             flex-direction: column;
@@ -208,8 +202,6 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
         }
-
-        /* CLOSE BUTTON */
         .close-popup {
             position: absolute;
             top: 15px;
@@ -240,7 +232,6 @@
 
     <h2>🎯 Goal-Based SIP Calculator</h2>
     
-    <!-- નવું મોબાઇલ નંબરનું ઇનપુટ બોક્સ -->
     <div class="input-group">
         <label for="mobileNumber">તમારો મોબાઇલ નંબર (Mobile Number):</label>
         <input type="tel" id="mobileNumber" placeholder="દા.ત. 9876543210" maxlength="10" pattern="[0-9]{10}">
@@ -326,28 +317,19 @@
         document.getElementById('popupOverlay').classList.remove('show');
     }
 
-    // Excel (Google Sheet) માં મોબાઇલ નંબર સાથે ડેટા સેવ કરવાનું ફંક્શન
+    // સુધારેલું ડેટા સેવિંગ ફંક્શન (નવી લિંક સાથે)
     function saveDataToExcel(mobileNumber, goalName, targetAmount, years, expectedReturn, sipAmount) {
-        // અહીં તમારી ગુગલ એપ્સ સ્ક્રિપ્ટની નવી વેબ એપ લિંક પેસ્ટ કરો
-        const webAppUrl = https://script.google.com/macros/s/AKfycbwb7j6SkayAw0eiLpn6hskEBpHNpQFqYeZq-hQHBdPkmEQMN4fOj0YECo3-6CozwREk7A/exec;
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbx6ELzfEDhVfcxDHZ8eLx2q3biXDIbny9isU7N0862nJ-8ZwrJnchmf1pEPkqjgKI5RDQ/exec';
         
-        const payload = {
-            mobileNumber: mobileNumber,
-            goalName: goalName,
-            targetAmount: targetAmount,
-            years: years,
-            expectedReturn: expectedReturn,
-            sipAmount: sipAmount
-        };
+        // ડેટાને URL Parameters તરીકે મોકલવો
+        const urlWithParams = `${webAppUrl}?mobileNumber=${encodeURIComponent(mobileNumber)}&goalName=${encodeURIComponent(goalName)}&targetAmount=${encodeURIComponent(targetAmount)}&years=${encodeURIComponent(years)}&expectedReturn=${encodeURIComponent(expectedReturn)}&sipAmount=${encodeURIComponent(sipAmount)}`;
 
-        fetch(webAppUrl, {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        }).catch(err => console.log("Error saving data:", err));
+        fetch(urlWithParams, {
+            method: "GET",
+            mode: "no-cors"
+        })
+        .then(() => console.log("ડેટા ગુગલ શીટમાં સક્સેસફુલી સેન્ડ થયો છે."))
+        .catch(err => console.log("Error saving data:", err));
     }
 
     function calculateGoalSIP() {
@@ -362,7 +344,6 @@
         const years = parseInt(document.getElementById('years').value);
         const expectedReturn = parseFloat(document.getElementById('expectedReturn').value);
 
-        // મોબાઇલ નંબર વેલિડેશન
         if (!mobileNumber || mobileNumber.length !== 10 || isNaN(mobileNumber)) {
             alert("કૃપા કરીને તમારો સાચો ૧૦ અંકનો મોબાઇલ નંબર લખો.");
             return;
@@ -399,11 +380,11 @@
 
         document.getElementById('resultBox').style.display = 'block';
 
-        // નવો મોબાઇલ નંબર પણ હવે બેકગ્રાઉન્ડમાં સેવ થઈ જશે
+        // બેકગ્રાઉન્ડમાં શીટમાં ડેટા મોકલવો
         saveDataToExcel(mobileNumber, goalName, formattedTarget, years, expectedReturn + "%", formattedSIP);
 
         const phoneNumber = "917383666008";
-        const whatsappMsg = `હેલો અ-ક્ષય વેલ્થ,\n\nહું મારા "${goalName}" ના ગોલ માટે ₹${formattedTarget} મેળવવા દર મહિને આશરે ${formattedSIP} ની SIP શરૂ કરવા માંગુ છું.\n\nમારો મોબાઇલ નંબર: ${mobileNumber}\n\nકૃપા કરીને મને આ પ્લાન માટે ગાઈડ કરો.`;
+        const whatsappMsg = `હેલો અ-ક્ષય વેલ્થ,\n\nહું મારા "${goalName}" ના ગોલ માટે ${formattedTarget} મેળવવા દર મહિને આશરે ${formattedSIP} ની SIP શરૂ કરવા માંગુ છું.\n\nમારો મોબાઇલ નંબર: ${mobileNumber}\n\nકૃપા કરીને મને આ પ્લાન માટે ગાઈડ કરો.`;
         const encodedMsg = encodeURIComponent(whatsappMsg);
         
         document.getElementById('whatsappLink').href = `https://wa.me/${phoneNumber}?text=${encodedMsg}`;
