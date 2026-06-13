@@ -319,7 +319,7 @@
 
     // સુધારેલું ડેટા સેવિંગ ફંક્શન (નવી લિંક સાથે)
     function saveDataToExcel(mobileNumber, goalName, targetAmount, years, expectedReturn, sipAmount) {
-        const webAppUrl = 'https://script.google.com/macros/s/AKfycbx6ELzfEDhVfcxDHZ8eLx2q3biXDIbny9isU7N0862nJ-8ZwrJnchmf1pEPkqjgKI5RDQ/exec';
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbyQwwZPOcCzrLF6braCLoq1mOpH4i3fA35FN9Ol5RUXJ8tBZLSLeuM_sIoXzKllI8QB4A/exec';
         
         // ડેટાને URL Parameters તરીકે મોકલવો
         const urlWithParams = `${webAppUrl}?mobileNumber=${encodeURIComponent(mobileNumber)}&goalName=${encodeURIComponent(goalName)}&targetAmount=${encodeURIComponent(targetAmount)}&years=${encodeURIComponent(years)}&expectedReturn=${encodeURIComponent(expectedReturn)}&sipAmount=${encodeURIComponent(sipAmount)}`;
